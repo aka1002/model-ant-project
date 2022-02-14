@@ -1,6 +1,14 @@
 <project default="jar" xmlns:jacoco="antlib:org.jacoco.ant">
+  <project name="null" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant">
   <property name="build.sysclasspath" value="ignore"/>
-
+  
+<property name="sonar.projectKey" value="org.sonarqube:sonarqube-scanner-ant" />
+<property name="sonar.projectName" value="null" />
+<property name="sonar.projectVersion" value="1.0" />
+<property name="sonar.sources" value="src" />
+<property name="sonar.java.binaries" value="build" />
+<property name="sonar.java.libraries" value="lib/*.jar" />
+ 
   <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
     <classpath path="lib/jacoco/jacocoant.jar"/>
   </taskdef>
@@ -65,6 +73,15 @@
   <target name="jacoco">
     <property name="jacoco" value="true"/>
   </target>
+    <target name="sonar">
+    <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+        <!-- Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+        //<classpath path="path/to/sonar/ant/task/lib/sonarqube-ant-task-*.jar" />
+    </taskdef>
+ 
+    <!-- Execute SonarScanner for Ant Analysis -->
+    <sonar:sonar />
+</target>
 
   <target name="jacoco-report" depends="test">
     <jacoco:report>
